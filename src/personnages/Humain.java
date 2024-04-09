@@ -52,6 +52,7 @@ public class Humain {
 	public void parler(String texte) {
 		System.out.println( prendreParole() + texte);
 	}
+	
 }
 
 	
