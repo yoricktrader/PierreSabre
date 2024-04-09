@@ -4,6 +4,8 @@ public class Humain {
 	private String nom;
 	private String boisson_favorite;
 	protected int argent;
+	protected int nbconnaissance=0;
+	protected Humain[] memoire;
 	
 	public Humain(String nom, String boisson_favorite, int argent) {
 		this.nom = nom;
@@ -35,24 +37,55 @@ public class Humain {
 		}
 		else {return "Je n'ai plus que " +argent +" sous en poche. Je ne peux pas m'acheter " + bien + " à "+prix+" sous";}
 	}
-	public int perdreArgent(int perte) {
+	
+	protected int perdreArgent(int perte) {
 		argent=argent-perte;
 		return argent;
 	}
 	
-	public int gagnerArgent(int gain) {
+	protected int gagnerArgent(int gain) {
 		argent=argent+gain;
 		return argent;
 	}
 	
-	public String prendreParole() {
+	
+ 	public String prendreParole() {
 		return "(" + nom + ")" + " - ";
 	}
 	
-	public void parler(String texte) {
+	protected void parler(String texte) {
 		System.out.println( prendreParole() + texte);
 	}
 	
+	private void repondre(Humain autreHumain) {
+		autreHumain.direBonjour();
+	}
+	
+	public void listerConnaissance(Humain autreHumain) {
+		
+	}
+	
+	private void memoriser(Humain autreHumain) {
+		if(this.nbconnaissance<30) {
+			this.nbconnaissance = this.nbconnaissance +1;
+			this.memoire[this.nbconnaissance] = autreHumain;
+		}
+		else {
+			for( int i =0; i<29; i++) {
+				this.memoire[i] = this.memoire[i+1];
+			}
+			this.memoire[29] = autreHumain;
+		}
+		
+	}
+	
+	
+	public void faireConnaissanceAvec(Humain autreHumain) {
+		this.direBonjour();
+		autreHumain.repondre(this);
+		autreHumain.memoriser(this);
+		this.memoriser(autreHumain);
+	}
 }
 
 	
